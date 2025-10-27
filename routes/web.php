@@ -3,10 +3,10 @@
 use Illuminate\Support\Facades\Route;
 use App\Models\Trainee;
 use App\Models\Role;
-use App\Models\Users;
+use App\Models\User;
 use App\Http\Controllers\TraineeController;
 use App\Http\Controllers\RoleController;
-use App\Http\Controllers\UsersController;
+use App\Http\Controllers\UserController;
 
 
 Route::get('/', function () {
@@ -40,8 +40,8 @@ Route::get('/trainees', [TraineeController::class,'index'])->name("trainees.inde
 Route::get('/trainees/{id}',[TraineeController::class,'show'])->name("trainees-details");
 Route::get('/roles',[RoleController::class,'index'])->name('roles.index');
 Route::get('/roles/{id}',[RoleController::class,'show'])->name('role.dtails');
-Route::get('/users',[UsersController::class, 'index'])->name('users-index');
-Route::get('/users/{id}',[UsersController::class, 'show'])->name('users-details');
+Route::get('/users',[UserController::class, 'index'])->name('users-index');
+Route::get('/users/{user_id}',[UserController::class, 'show'])->name('users-details');
 // Route::get('/users',function(){
 //     dd(Users::all());
 // });
