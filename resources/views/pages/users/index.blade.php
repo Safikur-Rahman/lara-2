@@ -2,6 +2,15 @@
 @section('title','Role')
 @section('content')
     <table class="table">
+      @if (session('success'))
+      <div class="alert alert-success" role="alert">
+        {{ session('success') }}
+      </div>
+        
+      @endif
+      <div class="my-3 text-end">
+        <a href="{{ route('users.create') }}" class="btn btn-outline-primary">Add New</a>
+      </div>
   <thead>
     <tr>
       <th scope="col">Index</th>
@@ -18,7 +27,8 @@
   <tbody>
     @foreach ($users as $i => $item)
     <tr>
-      <td scope="row">{{$i+1}}</td>
+      {{-- <td scope="row">{{$i+1}}</td> --}}
+      <td scope="row">{{$sl}}</td>
       <td scope="row">{{$item['user_id']}}</td>
       <td scope="row">{{$item['first_name']}}</td>
       <td scope="row">{{$item['last_name']}}</td>
@@ -26,8 +36,19 @@
       <td scope="row">{{$item['role']}}</td>
       {{-- <td scope="row">{{$item['address']}}</td> --}}
       {{-- <td scope="row">{{$item['photo']}}</td> --}}
-      <td scope="row"><x-button bg="dark" href="/users/{{$item['user_id']}}">View</x-button></td>
+      <td scope="row">
+        <x-button bg="dark" href="/users/{{$item['user_id']}}">View</x-button>
+        <form action="{{ route('users.destroy',$item['user_id']) }}" method="POST" class="d-inline">
+          @csrf
+          @method('DELETE')
+          <button type="submit" class="btn btn-danger">Delete</button>
+        </form>
+
+      </td>
     </tr>
+    @php
+      $sl++;
+    @endphp
     @endforeach
   </tbody>
   <tfoot>

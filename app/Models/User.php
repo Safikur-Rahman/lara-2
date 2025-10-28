@@ -7,7 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 class User extends Model
 {
     protected $table = 'users';
-
+    protected $primaryKey = 'user_id';
+    protected $fillable = [
+        'first_name',
+        'last_name',
+        'email',
+        'role_id',
+        'password',
+    ];
     // public static function all(){
     //     return self:: $table;
     // }

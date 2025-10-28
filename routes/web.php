@@ -41,7 +41,10 @@ Route::get('/trainees/{id}',[TraineeController::class,'show'])->name("trainees-d
 Route::get('/roles',[RoleController::class,'index'])->name('roles.index');
 Route::get('/roles/{id}',[RoleController::class,'show'])->name('role.dtails');
 Route::get('/users',[UserController::class, 'index'])->name('users-index');
+Route::get('/users/create',[UserController::class, 'create'])->name('users.create');
+Route::post('/users',[UserController::class, 'store'])->name('users.store');
 Route::get('/users/{user_id}',[UserController::class, 'show'])->name('users-details');
+Route::delete('/users/{user_id}',[UserController::class, 'destroy'])->name('users.destroy');
 // Route::get('/users',function(){
 //     dd(Users::all());
 // });
