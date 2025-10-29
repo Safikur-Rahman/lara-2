@@ -1,53 +1,50 @@
 @extends('layout.master')
-@section('title','Role')
+@section('title','Edit User')
 @section('content')
   <div class="container">
-   <h2>Create Users</h2> 
-   <form action="{{ route('users.store') }}" method="POST">
+   <h2>Edit Users</h2> 
+   <form action="{{ route('users.update',$user['user_id']) }}" method="POST">
     @csrf
+    @method('PATCH')
       <div class="row g-3">
         <div class="col-md-6">
           <label for="">Fast Name</label>
-          <input type="text" name="first_name" class="form-control" value={{ old('first_name') }}>
+          <input type="text" name="first_name" class="form-control" value="{{ old('first_name') ?? $user['first_name'] }}">
           @error('first_name')
             <span class="text-danger">{{$message}}</span>
           @enderror
         </div>
         <div class="col-md-6">
           <label for="">Last Name</label>
-          <input type="text" name="last_name" class="form-control" value={{ old('last_name') }}>
-          @error('last_name')
+          <input type="text" name="last_name" class="form-control" value="{{ old('last_name') ?? $user['last_name'] }}">
+         @error('last_name')
             <span class="text-danger">{{$message}}</span>
           @enderror
         </div>
         <div class="col-md-6">
           <label for="">Email</label>
-          <input type="text" name="email" class="form-control" value={{ old('email') }}>
+          <input type="text" name="email" class="form-control" value="{{ old('email') ??  $user['email'] }}">
            @error('email')
             <span class="text-danger">{{$message}}</span>
           @enderror
         </div>
         <div class="col-md-6">
           <label for="">Role</label>
-          <select name="role_id" id="" class="form-select">
+          {{-- <select name="role_id" id="" class="form-select">
             @foreach ($roles as $item)
-            <option value="{{ $item['id'] }}">{{$item['name']}}</option>
+            <option value="{{ $item['id'] }}" @selected($selected==$item['id'])>{{$item['name']}}</option>
             @endforeach
-          </select>
+          </select> --}}
         </div>
         <div class="col-md-6">
           <label for="">Password</label>
-          <input type="password" name="password" class="form-control">
-           @error('password')
-            <span class="text-danger">{{$message}}</span>
-          @enderror
+          <input type="password" name="password" class="form-control" value={{ $user['password'] }}>
+           
         </div>
         <div class="col-md-6">
           <label for="">Confirm Password</label>
-          <input type="password" name="password_confirmation" class="form-control">
-          @error('password_confirmation')
-            <span class="text-danger">{{$message}}</span>
-          @enderror
+          <input type="password" name="password_confirmation" class="form-control" value={{ $user['password_confirmation'] }}>
+          
         </div>
         {{-- /For Showing Error --}}
 

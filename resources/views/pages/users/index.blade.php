@@ -1,5 +1,5 @@
 @extends('layout.master')
-@section('title','Role')
+@section('title','Users')
 @section('content')
     <table class="table">
       @if (session('success'))
@@ -37,7 +37,10 @@
       {{-- <td scope="row">{{$item['address']}}</td> --}}
       {{-- <td scope="row">{{$item['photo']}}</td> --}}
       <td scope="row">
-        <x-button bg="dark" href="/users/{{$item['user_id']}}">View</x-button>
+        {{-- <x-button bg="dark" href="/users.show/{{$item['user_id']}}">View</x-button> --}}
+        <a href="{{route ('users.edit',$item['user_id'])}}" class="btn btn-primary">Edit</a>
+        {{-- <a href="/users/user/{{$item['user_id']}}" class="btn btn-info">Details</a> --}}
+        <a href="{{ route('users.show',$item['user_id']) }}" class="btn btn-info">Details</a>
         <form action="{{ route('users.destroy',$item['user_id']) }}" method="POST" class="d-inline">
           @csrf
           @method('DELETE')

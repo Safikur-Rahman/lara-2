@@ -1,5 +1,5 @@
 @extends('layout.master')
-@section('title','Role')
+@section('title','Details Users')
 @section('content')
     <table class="table">
   <thead>

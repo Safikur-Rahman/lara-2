@@ -71,9 +71,24 @@ class UserController extends Controller
             'first_name' => 'required|min:2|max:20',
             'last_name' => ['required','min:2','max:20'],
             'email' => ['required','email','unique:users'],
-            'password' => ['required','min:6','confirmed'],
+            'password' => ['required','min:6'],
+            'password_confirmation' => ['required','min:6','confirmed'],
             
         ]);
+        //=========For Error Message==========//
+//         $request->validate([
+//     'first_name' => 'required|min:2|max:20',
+//     'last_name' => 'required|min:2|max:20',
+//     'email' => 'required|email|unique:users,email',
+//     'password' => 'required|min:6|confirmed',
+//     'password_confirmation' => 'required|min:6',
+// ], [
+//     'password.required' => 'Please enter your password.',
+//     'password.min' => 'Your password must be at least 6 characters.',
+//     'password.confirmed' => 'Passwords do not match.',
+//     'password_confirmation.required' => 'Please confirm your password.',
+//     'password_confirmation.min' => 'Your confirmation must be at least 6 characters.',
+// ]);
        $user = User::create(
         [
             'first_name' => $request->first_name,
@@ -85,5 +100,23 @@ class UserController extends Controller
         );
         // dd($user);
         return redirect()->route('users-index')->with('succes','User Created Successfully');
+    }
+    public function edit($id){
+         $user = User::find($id);
+         $roles = Role::all();
+         return view('pages.users.edit', compact('user','roles'));
+    }
+    public function update(Request $request,$id){
+        $request->validate([
+           'first_name' => 'required|min:2|max:20',
+            'last_name' => ['required','min:2','max:20'], 
+        ]);
+         $user = User::find($id);
+         $user->update([
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'role_id' => $request->role_id,
+         ]);
+         return redirect()->route('users.index')->with('succes','User Updated Successfully');
     }
 }
